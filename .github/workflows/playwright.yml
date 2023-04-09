@@ -15,7 +15,7 @@ jobs:
       with:
         node-version: 16
 
-    - name: Run selenium test for ${{ matrix.browser }}
+    - name: Start up the supporting nginx services
       run: |
 
         echo "Creating a certificate"
