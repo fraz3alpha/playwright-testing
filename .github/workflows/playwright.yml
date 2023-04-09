@@ -69,6 +69,8 @@ jobs:
 
     - name: Run Playwright tests
       run: xvfb-run npx playwright test
+      env:
+        COUNTRY_HOSTNAME: "${{ matrix.country_hostname }}"
 
     - name: list files in root dir
       run: ls -l

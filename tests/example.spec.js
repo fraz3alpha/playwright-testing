@@ -7,6 +7,8 @@
 const { test: base, expect, chromium } = require('@playwright/test')
 const path = require('path')
 
+const countryDomain = process.env.COUNTRY_HOSTNAME ? process.env.COUNTRY_HOSTNAME : "parkrun.org.uk"
+
 const extensionPath = path.join(__dirname, '../build') // make sure this is correct
 
 const test = base.extend({
@@ -40,7 +42,7 @@ const test = base.extend({
 // await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
 test('has title', async ({ page }) => {
-  await page.goto('https://www.parkrun.org.uk/parkrunner/1309364/all/');
+  await page.goto(`https://www.${countryDomain}/parkrunner/1309364/all/`);
 
   // Wait 3 seconds, this should be plenty as we are serving all the data locally and there shoudn't be
   // any internet calls
