@@ -17,12 +17,17 @@ jobs:
     - name: Unpack extension
       run: cd build && unzip extension.zip
 
+    - name: Install xvfb
+      run: sudo apt update && sudo apt install -y xvfb
+
     - name: Install dependencies
       run: npm ci
+
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+
     - name: Run Playwright tests
-      run: npx playwright test
+      run: xvfb-run npx playwright test
 
     - name: list files in root dir
       run: ls -l
