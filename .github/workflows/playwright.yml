@@ -12,24 +12,27 @@ jobs:
     strategy:
       matrix:
         country_hostname:
-          - "parkrun.com.au"
+          - "parkrun.ca"
+          - "parkrun.co.at"
+          - "parkrun.co.nl"
           - "parkrun.co.nz"
+          - "parkrun.co.za"
+          - "parkrun.com.au"
+          - "parkrun.com.us"
+          - "parkrun.dk"
+          - "parkrun.fi"
+          - "parkrun.fr"
+          - "parkrun.ie"
+          - "parkrun.it"
+          - "parkrun.jp"
+          - "parkrun.my"
+          - "parkrun.no"
           - "parkrun.org.uk"
-          # - "parkrun.ca"
-          # - "parkrun.ie"
-          # - "parkrun.co.za"
-          # - "parkrun.us"
-          # - "parkrun.sg"
-          # - "parkrun.it"
-          # - "parkrun.dk"
-          # - "parkrun.se"
-          # - "parkrun.fi"
-          # - "parkrun.fr"
-          # - "parkrun.no"
-          # # - "parkrun.ru" # Russian events are suspended
-          # - "parkrun.my"
-          # - "parkrun.co.nl"
-          # - "parkrun.co.at"
+          - "parkrun.pl"
+          - "parkrun.se"
+          - "parkrun.sg"
+          - "parkrun.us"
+          # - "parkrun.ru" # Russian events are suspended
       fail-fast: true
       # max-parallel: 1
 
