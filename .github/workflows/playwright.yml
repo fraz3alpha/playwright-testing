@@ -8,11 +8,42 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
+    services:
+
+      nginx:
+        image: nginx:1.20
+        ports:
+          - 80:80
+          - 443:443
+        volumes:
+          - ./supporting-data/sites/:/usr/share/nginx/html/
+          - ./supporting-data/nginx/conf.d/:/etc/nginx/conf.d/
+          - ./supporting-data/nginx/cert/:/etc/nginx/cert/
+
+      nginx:
+        image: ${{ matrix.selenium-image }}
+        ports: 
+          - 4444:4444
+        volumes:
+          - /dev/shm:/dev/shm
+
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
       with:
         node-version: 16
+
+    - name: Run selenium test for ${{ matrix.browser }}
+      run: |
+
+        echo "Creating a certificate"
+        cd ./supporting-data/nginx/cert/
+        bash generate.sh
+        cd -
+
+        echo "Starting up docker compose services"
+        docker-compose -f "./supporting-data/docker-compose-gh-actions.yml" up --force-recreate -d
 
     - name: Unpack extension
       run: cd build && unzip extension.zip
