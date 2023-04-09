@@ -27,6 +27,7 @@ jobs:
         docker-compose -f "./supporting-data/docker-compose-gh-actions.yml" up --force-recreate -d
 
         # Make the changes to /etc/hosts so that the tests reference the above containers.
+        echo "Append to /etc/hosts to use this nginx"
         sudo bash -c 'cat ./supporting-data/etc-hosts.txt >> /etc/hosts'
 
     - name: Unpack extension
