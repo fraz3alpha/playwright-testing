@@ -9,25 +9,6 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
-    services:
-
-      nginx:
-        image: nginx:1.20
-        ports:
-          - 80:80
-          - 443:443
-        volumes:
-          - ./supporting-data/sites/:/usr/share/nginx/html/
-          - ./supporting-data/nginx/conf.d/:/etc/nginx/conf.d/
-          - ./supporting-data/nginx/cert/:/etc/nginx/cert/
-
-      nginx:
-        image: ${{ matrix.selenium-image }}
-        ports: 
-          - 4444:4444
-        volumes:
-          - /dev/shm:/dev/shm
-
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
