@@ -47,7 +47,7 @@ test('has title', async ({ page }) => {
   await page.waitForTimeout(3000);
   
   // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle("results | parkrun UK", { timeout: 1000 });
+  await expect(page).toHaveTitle(/results/, { timeout: 1000 });
 
   // This takes a screenshot of the entire page, which is probably a good idea to do early on,
   // but we should really wait until the extension has loaded.

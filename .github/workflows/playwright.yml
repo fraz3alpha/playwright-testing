@@ -9,6 +9,30 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        country_hostname:
+          - "parkrun.com.au"
+          - "parkrun.co.nz"
+          - "parkrun.org.uk"
+          # - "parkrun.ca"
+          # - "parkrun.ie"
+          # - "parkrun.co.za"
+          # - "parkrun.us"
+          # - "parkrun.sg"
+          # - "parkrun.it"
+          # - "parkrun.dk"
+          # - "parkrun.se"
+          # - "parkrun.fi"
+          # - "parkrun.fr"
+          # - "parkrun.no"
+          # # - "parkrun.ru" # Russian events are suspended
+          # - "parkrun.my"
+          # - "parkrun.co.nl"
+          # - "parkrun.co.at"
+      fail-fast: true
+      # max-parallel: 1
+
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-node@v3
@@ -52,7 +76,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: playwright-report
+        name: playwright-report-${{ matrix.country_hostname }}
         path: |
           playwright-report/
           screenshot.png
