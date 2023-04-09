@@ -48,14 +48,17 @@ test('has title', async ({ page }) => {
   // any internet calls
   await page.waitForTimeout(3000);
   
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/results/, { timeout: 1000 });
+  // Expect a title "to contain" a substring, this probably won't work on anything other than english language sites.
+  // await expect(page).toHaveTitle(/results/, { timeout: 1000 });
 
   // This takes a screenshot of the entire page, which is probably a good idea to do early on,
   // but we should really wait until the extension has loaded.
-  await page.screenshot({ path: 'screenshot.png', fullPage: true });
+  // await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
-  await page.waitForTimeout(1000);
+  let messagesDiv = page.locator("#running_challenges_messages_div")
+
+  await expect(messagesDiv).toHaveText("Additional badges provided by Running Challenges", {timeout: 2000})
+
 });
 
 // test('get started link', async ({ page }) => {
