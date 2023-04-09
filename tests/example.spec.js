@@ -53,7 +53,7 @@ test('has title', async ({ page }) => {
 
   // This takes a screenshot of the entire page, which is probably a good idea to do early on,
   // but we should really wait until the extension has loaded.
-  // await page.screenshot({ path: 'screenshot.png', fullPage: true });
+  await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
   let messagesDiv = page.locator("#running_challenges_messages_div")
 
