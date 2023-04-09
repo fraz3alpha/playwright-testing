@@ -42,13 +42,18 @@ const test = base.extend({
 test('has title', async ({ page }) => {
   await page.goto('https://www.parkrun.org.uk/parkrunner/1309364/all/');
 
+  // Wait 3 seconds, this should be plenty as we are serving all the data locally and there shoudn't be
+  // any internet calls
+  await page.waitForTimeout(3000);
+  
+  // Expect a title "to contain" a substring.
+  await expect(page).toHaveTitle("results | parkrun UK", { timeout: 1000 });
 
   // This takes a screenshot of the entire page, which is probably a good idea to do early on,
   // but we should really wait until the extension has loaded.
   await page.screenshot({ path: 'screenshot.png', fullPage: true });
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/, { timeout: 30000 });
+  await page.waitForTimeout(1000);
 });
 
 // test('get started link', async ({ page }) => {
