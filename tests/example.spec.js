@@ -23,8 +23,11 @@ const test = base.extend({
       viewport: {
         width: 1920,
         height: 1080
-      }
+      },
+      // Is this how you accept self-signed certificates?
+      ignoreHTTPSErrors: true
     }
+
     const context = await browserTypes[browserName].launchPersistentContext(
       '',
       launchOptions
