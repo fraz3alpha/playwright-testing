@@ -5,6 +5,6 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./supporting-data/sites/:/usr/share/nginx/html/
-      - ./supporting-data/nginx/conf.d/:/etc/nginx/conf.d/
-      - ./supporting-data/nginx/cert/:/etc/nginx/cert/
+      - ./sites/:/usr/share/nginx/html/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/cert/:/etc/nginx/cert/
