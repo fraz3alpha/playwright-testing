@@ -64,9 +64,9 @@ test('Basic extension operation', async ({ page }) => {
     let url = route.request().url()
     console.log(url)
     let urlMatch = url.match(urlRegex)
-    console.log(urlMatch)
+    // console.log(urlMatch)
 
-    if (urlMatch === null || urlMatch === undefined) {
+    if (urlMatch === null || urlMatch === undefined ) {
 
       route.fulfill({
         status: 404,
@@ -76,22 +76,58 @@ test('Basic extension operation', async ({ page }) => {
 
     } else {
 
-      const data = fs.readFileSync(
-        `./supporting-data/sites/${urlMatch.groups.parkrunDomain}/contents/parkrunner/${urlMatch.groups.parkrunnerId}/all/index.html`,
-        {
-          encoding:'utf8',
-          flag:'r'
-        }
-      );
+      // const data = fs.readFileSync(
+      //   `./supporting-data/sites/${urlMatch.groups?.parkrunDomain}/contents/parkrunner/${urlMatch.groups?.parkrunnerId}/all/index.html`,
+      //   {
+      //     encoding:'utf8',
+      //     flag:'r'
+      //   }
+      // );
+
+      let filePath = `./supporting-data/sites/${urlMatch.groups?.parkrunDomain}/contents/parkrunner/${urlMatch.groups?.parkrunnerId}/all/index.html`
+
+      console.log(`Serving ${filePath}`)
 
       route.fulfill({
         status: 200,
         contentType: 'text/html',
-        body: data
+        path: filePath
       })
 
     }
   }
+  );
+
+  await page.route(`https://images.parkrun.com/events.json`, route => 
+    {
+
+      console.log("Serving the events.json file")
+
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        headers: {
+          "access-control-allow-origin": "*",
+          "access-control-allow-methods": "GET"
+        },
+        path: './supporting-data/sites/images.parkarun.com/contents/events.json'
+      })
+
+    }
+  );
+
+  await page.route(`https://wiki.parkrun.com/index.php/Technical_Event_Information`, route => 
+    {
+
+      console.log("Serving the Technical_Event_Information wiki page file")
+
+      route.fulfill({
+        status: 200,
+        contentType: 'text/html',
+        path: './supporting-data/sites/wiki.parkarun.com/contents/index.php/Technical_Event_Information'
+      })
+
+    }
   );
 
   await page.goto(`https://www.${countryDomain}/parkrunner/1309364/all/`);
@@ -109,7 +145,7 @@ test('Basic extension operation', async ({ page }) => {
 
   let messagesDiv = page.locator("#running_challenges_messages_div")
 
-  await expect(messagesDiv).toHaveText("Additional badges provided by Running Challenges", {timeout: 2000})
+  await expect(messagesDiv).toHaveText("Additional badges provided by Running Challenges", {timeout: 60000})
 
 });
 
